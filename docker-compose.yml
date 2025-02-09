@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: remonti_web
+    # команда запуска берётся из CMD в Dockerfile, но при желании можно переопределить ниже:
+    # command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+    volumes:
+      # пробрасываем исходники с хоста внутрь контейнера (и обратно), чтобы изменения в коде сразу были видны
+      - ./:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      # - DEBUG=1
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/dbname
+
+  db:
+    image: postgres:14
+    container_name: remonti_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: dbname
+    ports:
+      - "5432:5432"
+    # volumes:
+    #   - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

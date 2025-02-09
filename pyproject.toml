@@ -3,7 +3,6 @@ name = "remonti-api"
 version = "0.1.0"
 description = ""
 authors = ["Ekaterina Itchenko <ekaterina.savickaya.1989@gmail.com>"]
-readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
